@@ -1519,26 +1519,44 @@
 
     footer a:hover { color: var(--gold); }
 
-    /* Legal pages — always at bottom, footer links scroll here */
+    /* Legal pages — hidden until footer link is clicked */
     .legal-wrap {
+      display: none;
       border-top: 1px solid var(--line);
       background: var(--bg);
+      scroll-margin-top: calc(var(--nav-h) + 16px);
+    }
+
+    .legal-wrap.is-open {
+      display: block;
     }
 
     .legal-section {
-      padding: 64px 0;
-      scroll-margin-top: calc(var(--nav-h) + 16px);
-      border-bottom: 1px solid var(--line);
+      display: none;
+      padding: 64px 0 80px;
     }
 
-    .legal-section:last-child {
-      border-bottom: none;
-      padding-bottom: 80px;
+    .legal-section.is-active {
+      display: block;
     }
 
-    .legal-section:target {
-      background: rgba(201, 168, 76, 0.06);
+    .legal-close {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 28px;
+      padding: 0;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color var(--ease);
     }
+
+    .legal-close:hover { color: var(--gold); }
 
     .legal-section h2 {
       font-size: clamp(1.75rem, 4vw, 2.25rem);
@@ -1944,9 +1962,16 @@
     </div>
   </section>
 
-  <div class="legal-wrap">
+  <footer>
+    <div class="wrap">
+      <p class="reveal">© 2026 Foundlinger · <a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a> · <a href="#agb">AGB</a></p>
+    </div>
+  </footer>
+
+  <div class="legal-wrap" id="legalWrap" hidden>
     <section id="impressum" class="legal-section">
       <div class="wrap">
+        <button type="button" class="legal-close">← Schließen</button>
         <h2>Impressum</h2>
         <p>Angaben gemäß § 5 TMG</p>
         <address>
@@ -1966,6 +1991,7 @@
 
     <section id="datenschutz" class="legal-section">
       <div class="wrap">
+        <button type="button" class="legal-close">← Schließen</button>
         <h2>Datenschutzerklärung</h2>
         <h3>1. Verantwortlicher</h3>
         <p>Ian-Tayler Paske, An den Eichen 2, 21400 Reinstorf<br>
@@ -1985,6 +2011,7 @@
 
     <section id="agb" class="legal-section">
       <div class="wrap">
+        <button type="button" class="legal-close">← Schließen</button>
         <h2>Allgemeine Geschäftsbedingungen</h2>
         <h3>1. Geltungsbereich</h3>
         <p>Diese AGB gelten für alle Verträge zwischen Ian-Tayler Paske (nachfolgend „Auftragnehmer“) und dem Kunden.</p>
@@ -2004,12 +2031,6 @@
       </div>
     </section>
   </div>
-
-  <footer>
-    <div class="wrap">
-      <p class="reveal">© 2026 Foundlinger · <a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a> · <a href="#agb">AGB</a></p>
-    </div>
-  </footer>
 
   <script>
     (function () {
@@ -2250,24 +2271,64 @@
 
         addEventListener('resize', () => setProgress(activeIndex), { passive: true });
       }
-      /* Footer legal links — reliable scroll to visible sections */
+      /* Legal pages — open on footer click, close with button */
+      const legalWrap = document.getElementById('legalWrap');
+      const legalSections = document.querySelectorAll('.legal-section');
+
+      const openLegal = (id) => {
+        const target = document.getElementById(id);
+        if (!target || !legalWrap) return;
+
+        legalSections.forEach(section => section.classList.remove('is-active'));
+        target.classList.add('is-active');
+        legalWrap.classList.add('is-open');
+        legalWrap.hidden = false;
+        history.pushState(null, '', '#' + id);
+
+        requestAnimationFrame(() => {
+          legalWrap.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+        });
+      };
+
+      const closeLegal = () => {
+        if (!legalWrap) return;
+        legalSections.forEach(section => section.classList.remove('is-active'));
+        legalWrap.classList.remove('is-open');
+        legalWrap.hidden = true;
+        history.pushState(null, '', window.location.pathname + window.location.search);
+      };
+
       document.querySelectorAll('footer a[href^="#"]').forEach(link => {
         link.addEventListener('click', (e) => {
           const id = link.getAttribute('href').slice(1);
           const target = document.getElementById(id);
-          if (!target) return;
+          if (!target || !target.classList.contains('legal-section')) return;
           e.preventDefault();
-          target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-          history.pushState(null, '', '#' + id);
+          openLegal(id);
         });
       });
 
+      document.querySelectorAll('.legal-close').forEach(btn => {
+        btn.addEventListener('click', closeLegal);
+      });
+
       if (location.hash) {
-        const initial = document.getElementById(location.hash.slice(1));
-        if (initial && initial.classList.contains('legal-section')) {
-          requestAnimationFrame(() => initial.scrollIntoView({ block: 'start' }));
+        const id = location.hash.slice(1);
+        if (document.getElementById(id)?.classList.contains('legal-section')) {
+          openLegal(id);
         }
       }
+
+      addEventListener('hashchange', () => {
+        if (!location.hash) {
+          closeLegal();
+          return;
+        }
+        const id = location.hash.slice(1);
+        if (document.getElementById(id)?.classList.contains('legal-section')) {
+          openLegal(id);
+        }
+      });
     })();
   </script>
 </body>
