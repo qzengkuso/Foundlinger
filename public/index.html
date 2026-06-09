@@ -1519,6 +1519,61 @@
 
     footer a:hover { color: var(--gold); }
 
+    /* Legal pages (hidden until footer link clicked) */
+    .legal-section {
+      display: none;
+      padding: 80px 0 100px;
+      border-top: 1px solid var(--line);
+      background: var(--white);
+      scroll-margin-top: var(--nav-h);
+    }
+
+    .legal-section:target {
+      display: block;
+    }
+
+    .legal-section h2 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+
+    .legal-section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 28px 0 10px;
+      color: var(--text);
+    }
+
+    .legal-section p,
+    .legal-section address {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-style: normal;
+    }
+
+    .legal-section a {
+      color: var(--gold);
+      transition: color var(--ease);
+    }
+
+    .legal-section a:hover { color: var(--text); }
+
+    .legal-back {
+      display: inline-block;
+      margin-bottom: 32px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color var(--ease);
+    }
+
+    .legal-back:hover { color: var(--gold); }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal, .hero h1 .word, .hero-visual-dots, .hero-visual-ring, .mock-browser, .mock-cursor,
@@ -1577,7 +1632,7 @@
         </div>
         <div class="hero-stats">
           <div class="hero-stat"><strong>2 Wochen</strong><span>Lieferzeit im Schnitt</span></div>
-          <div class="hero-stat"><strong>3 Leistungen</strong><span>Website, Social &amp; Branding</span></div>
+          <div class="hero-stat"><strong>3 Leistungen</strong><span>Website, Social Media &amp; Branding</span></div>
           <div class="hero-stat"><strong>Lüneburg</strong><span>Persönlich &amp; lokal</span></div>
         </div>
       </div>
@@ -1894,7 +1949,7 @@
 
   <footer>
     <div class="wrap">
-      <p class="reveal">© 2026 Foundlinger · <a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+      <p class="reveal">© 2026 Foundlinger · <a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a> · <a href="#agb">AGB</a></p>
     </div>
   </footer>
 
@@ -2139,5 +2194,67 @@
       }
     })();
   </script>
+
+  <section id="impressum" class="legal-section">
+    <div class="wrap">
+      <a href="#" class="legal-back">← Zurück zur Startseite</a>
+      <h2>Impressum</h2>
+      <p>Angaben gemäß § 5 TMG</p>
+      <address>
+        Ian-Tayler Paske<br>
+        An den Eichen 2<br>
+        21400 Reinstorf
+      </address>
+      <p><strong>Kontakt:</strong><br>
+      E-Mail: <a href="mailto:ianpaske2@gmail.com">ianpaske2@gmail.com</a></p>
+      <p>Hinweis: Telefonnummer wird nachgetragen.</p>
+      <p><strong>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</strong><br>
+      Ian-Tayler Paske<br>
+      An den Eichen 2<br>
+      21400 Reinstorf</p>
+    </div>
+  </section>
+
+  <section id="datenschutz" class="legal-section">
+    <div class="wrap">
+      <a href="#" class="legal-back">← Zurück zur Startseite</a>
+      <h2>Datenschutzerklärung</h2>
+      <h3>1. Verantwortlicher</h3>
+      <p>Ian-Tayler Paske, An den Eichen 2, 21400 Reinstorf<br>
+      E-Mail: <a href="mailto:ianpaske2@gmail.com">ianpaske2@gmail.com</a></p>
+      <h3>2. Erhebung von Daten</h3>
+      <p>Diese Website erhebt keine personenbezogenen Daten automatisch.<br>
+      Beim Kontakt per E-Mail werden Ihre Angaben zur Bearbeitung der Anfrage gespeichert.</p>
+      <h3>3. Weitergabe von Daten</h3>
+      <p>Ihre Daten werden nicht an Dritte weitergegeben.</p>
+      <h3>4. Ihre Rechte</h3>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Widerspruch bezüglich Ihrer gespeicherten Daten.<br>
+      Kontakt: <a href="mailto:ianpaske2@gmail.com">ianpaske2@gmail.com</a></p>
+      <h3>5. Hosting</h3>
+      <p>Diese Website wird gehostet bei Vercel Inc., 340 Pine Street, Suite 900, San Francisco, CA 94104, USA.</p>
+    </div>
+  </section>
+
+  <section id="agb" class="legal-section">
+    <div class="wrap">
+      <a href="#" class="legal-back">← Zurück zur Startseite</a>
+      <h2>Allgemeine Geschäftsbedingungen</h2>
+      <h3>1. Geltungsbereich</h3>
+      <p>Diese AGB gelten für alle Verträge zwischen Ian-Tayler Paske (nachfolgend „Auftragnehmer“) und dem Kunden.</p>
+      <h3>2. Vertragsschluss</h3>
+      <p>Ein Vertrag kommt durch schriftliche Auftragsbestätigung per E-Mail zustande.</p>
+      <h3>3. Leistungen</h3>
+      <p>Der Auftragnehmer erbringt Leistungen im Bereich Webdesign, Branding und Social Media gemäß individuellem Angebot.</p>
+      <h3>4. Zahlung</h3>
+      <p>50% Anzahlung bei Auftragserteilung, 50% bei Fertigstellung.<br>
+      Zahlungsziel: 14 Tage nach Rechnungsstellung.</p>
+      <h3>5. Urheberrecht</h3>
+      <p>Alle erstellten Werke bleiben bis zur vollständigen Zahlung Eigentum des Auftragnehmers.</p>
+      <h3>6. Haftung</h3>
+      <p>Der Auftragnehmer haftet nicht für Schäden durch fehlerhafte Inhalte des Kunden.</p>
+      <h3>7. Streitigkeiten</h3>
+      <p>Es gilt deutsches Recht. Gerichtsstand ist Lüneburg.</p>
+    </div>
+  </section>
 </body>
 </html>
