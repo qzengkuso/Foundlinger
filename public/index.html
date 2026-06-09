@@ -251,6 +251,25 @@
     .mobile-nav a { padding: 12px 0; font-size: 16px; font-weight: 500; cursor: pointer; }
     .mobile-nav .btn { margin-top: 12px; width: 100%; }
 
+    .mobile-nav-legal {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .mobile-nav-legal a {
+      padding: 14px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      -webkit-tap-highlight-color: rgba(201, 168, 76, 0.15);
+    }
+
+    .mobile-nav-legal a:active { color: var(--gold); }
+
     @media (min-width: 768px) {
       .nav-links { display: flex; }
       .nav-btn { display: inline-flex; }
@@ -1519,6 +1538,27 @@
 
     footer a:hover { color: var(--gold); }
 
+    @media (max-width: 767px) {
+      footer { padding: 36px 0 44px; }
+
+      footer p {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 4px 12px;
+        line-height: 1.6;
+      }
+
+      footer a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 10px 8px;
+        -webkit-tap-highlight-color: rgba(201, 168, 76, 0.15);
+      }
+    }
+
     /* Legal pages — hidden until footer link is clicked */
     .legal-wrap {
       display: none;
@@ -1534,6 +1574,16 @@
     .legal-section {
       display: none;
       padding: 64px 0 80px;
+    }
+
+    @media (max-width: 767px) {
+      .legal-section { padding: 48px 0 64px; }
+
+      .legal-close {
+        min-height: 44px;
+        padding: 8px 0;
+        -webkit-tap-highlight-color: rgba(201, 168, 76, 0.15);
+      }
     }
 
     .legal-section.is-active {
@@ -1632,6 +1682,11 @@
     <a href="#pakete">Pakete</a>
     <a href="#prozess">Prozess</a>
     <a href="#kontakt" class="btn btn-gold">Kostenlos anfragen</a>
+    <div class="mobile-nav-legal">
+      <a href="#impressum">Impressum</a>
+      <a href="#datenschutz">Datenschutz</a>
+      <a href="#agb">AGB</a>
+    </div>
   </div>
 
   <header class="hero">
@@ -1968,7 +2023,7 @@
     </div>
   </footer>
 
-  <div class="legal-wrap" id="legalWrap" hidden>
+  <div class="legal-wrap" id="legalWrap">
     <section id="impressum" class="legal-section">
       <div class="wrap">
         <button type="button" class="legal-close">← Schließen</button>
@@ -2153,7 +2208,8 @@
         menuBtn.setAttribute('aria-expanded', String(open));
       });
 
-      mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+      mobileNav.querySelectorAll('a:not([href="#impressum"]):not([href="#datenschutz"]):not([href="#agb"])')
+        .forEach(a => a.addEventListener('click', closeMenu));
 
       /* Reveal with stagger */
       if (reduced) {
@@ -2271,22 +2327,31 @@
 
         addEventListener('resize', () => setProgress(activeIndex), { passive: true });
       }
-      /* Legal pages — open on footer click, close with button */
+      /* Legal pages — open on footer / mobile menu click, close with button */
       const legalWrap = document.getElementById('legalWrap');
       const legalSections = document.querySelectorAll('.legal-section');
+      const legalIds = ['impressum', 'datenschutz', 'agb'];
+
+      const scrollToLegal = () => {
+        if (!legalWrap) return;
+        const navOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 120;
+        const top = legalWrap.getBoundingClientRect().top + window.scrollY - navOffset - 12;
+        window.scrollTo({ top: Math.max(0, top), behavior: reduced ? 'auto' : 'smooth' });
+      };
 
       const openLegal = (id) => {
         const target = document.getElementById(id);
-        if (!target || !legalWrap) return;
+        if (!target || !legalWrap || !legalIds.includes(id)) return;
+
+        if (mobileNav.classList.contains('open')) closeMenu();
 
         legalSections.forEach(section => section.classList.remove('is-active'));
         target.classList.add('is-active');
         legalWrap.classList.add('is-open');
-        legalWrap.hidden = false;
         history.pushState(null, '', '#' + id);
 
         requestAnimationFrame(() => {
-          legalWrap.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+          requestAnimationFrame(scrollToLegal);
         });
       };
 
@@ -2294,17 +2359,13 @@
         if (!legalWrap) return;
         legalSections.forEach(section => section.classList.remove('is-active'));
         legalWrap.classList.remove('is-open');
-        legalWrap.hidden = true;
         history.pushState(null, '', window.location.pathname + window.location.search);
       };
 
-      document.querySelectorAll('footer a[href^="#"]').forEach(link => {
+      document.querySelectorAll('a[href="#impressum"], a[href="#datenschutz"], a[href="#agb"]').forEach(link => {
         link.addEventListener('click', (e) => {
-          const id = link.getAttribute('href').slice(1);
-          const target = document.getElementById(id);
-          if (!target || !target.classList.contains('legal-section')) return;
           e.preventDefault();
-          openLegal(id);
+          openLegal(link.getAttribute('href').slice(1));
         });
       });
 
