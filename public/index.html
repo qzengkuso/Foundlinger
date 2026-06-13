@@ -1047,21 +1047,16 @@
       animation: appleFadeUp 0.8s var(--apple) 0.3s both;
     }
 
-    .reveal.show.pkg-col-header,
-    .reveal.show .pkg-col-header {
-      animation: appleFadeUp 0.85s var(--apple) both;
-    }
-
-    .pkg-col-headers.reveal.show .pkg-col-header:nth-child(1) { animation-delay: 0.05s; }
-    .pkg-col-headers.reveal.show .pkg-col-header:nth-child(2) { animation-delay: 0.15s; }
-    .pkg-col-headers.reveal.show .pkg-col-header:nth-child(3) { animation-delay: 0.25s; }
-
-    .reveal.show.pkg-card .pkg-card-tier {
+    .reveal.show.pkg-card .pkg-card-title {
       animation: appleFadeUp 0.75s var(--apple) 0.08s both;
     }
 
-    .reveal.show.pkg-card .pkg-card-mobile-cat {
-      animation: appleFadeUp 0.7s var(--apple) 0.04s both;
+    .reveal.show.pkg-card .pkg-card-tagline {
+      animation: appleFadeUp 0.75s var(--apple) 0.14s both;
+    }
+
+    .reveal.show.pkg-card .pkg-card-pricing {
+      animation: appleFadeUp 0.75s var(--apple) 0.2s both;
     }
 
     .reveal.show.pkg-card .btn {
@@ -1302,36 +1297,75 @@
       line-height: 1.65;
     }
 
-    /* Pakete — 2×3 card grid */
-    .pkg-col-headers {
-      display: none;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 20px;
+    /* Pakete — tabbed Starter / Pro */
+    .pkg-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+      padding: 6px;
+      background: var(--bg);
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .pkg-tab {
+      flex: 1;
+      min-width: 0;
+      padding: 13px 18px;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.45s var(--apple), color 0.45s var(--apple), box-shadow 0.45s var(--apple);
+      white-space: nowrap;
+    }
+
+    .pkg-tab:hover { color: var(--text); }
+
+    .pkg-tab.is-active {
+      background: var(--white);
+      color: var(--text);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .pkg-tab-intro {
       text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      color: #505050;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    @media (min-width: 900px) {
-      .pkg-col-headers { display: grid; }
+    .pkg-tab-panel {
+      display: none;
     }
 
-    .pkg-col-header {
-      font-size: 1.2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #C9A84C;
+    .pkg-tab-panel.is-active {
+      display: block;
+      animation: appleFadeUp 0.55s var(--apple) both;
     }
 
-    .pkg-grid {
+    .pkg-duo-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 16px;
+      gap: 20px;
     }
 
-    @media (min-width: 900px) {
-      .pkg-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 14px;
+    @media (min-width: 768px) {
+      .pkg-duo-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: stretch;
       }
     }
 
@@ -1347,68 +1381,98 @@
     }
 
     .pkg-card--starter {
-      border: 0.5px solid rgba(201, 168, 76, 0.2);
+      border: 1px solid rgba(201, 168, 76, 0.18);
     }
 
     .pkg-card--pro {
-      border: 1px solid #C9A84C;
-      background: rgba(201, 168, 76, 0.05);
+      border: 1.5px solid #C9A84C;
+      background: linear-gradient(165deg, rgba(201, 168, 76, 0.1) 0%, #ffffff 52%);
+      box-shadow: 0 12px 36px rgba(201, 168, 76, 0.14);
     }
 
     .pkg-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-5px);
       box-shadow: var(--shadow-hover);
     }
 
-    .pkg-card--starter:hover { border-color: rgba(201, 168, 76, 0.35); }
-    .pkg-card--pro:hover { border-color: #C9A84C; }
-
-    .pkg-card-mobile-cat {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #C9A84C;
-      margin-bottom: 6px;
-    }
-
-    @media (min-width: 900px) {
-      .pkg-card-mobile-cat { display: none; }
+    .pkg-card--starter:hover { border-color: rgba(201, 168, 76, 0.38); }
+    .pkg-card--pro:hover {
+      border-color: #C9A84C;
+      box-shadow: 0 18px 44px rgba(201, 168, 76, 0.18);
     }
 
     .pkg-card-pro-badge {
       position: absolute;
       top: 16px;
       right: 16px;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       background: #C9A84C;
       color: #000;
-      padding: 4px 9px;
+      padding: 5px 10px;
       border-radius: 4px;
       line-height: 1;
     }
 
-    .pkg-card-tier {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0;
+    .pkg-card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      padding-right: 88px;
     }
 
-    .pkg-card--pro .pkg-card-tier { color: #C9A84C; }
+    .pkg-card--pro .pkg-card-title { color: var(--text); }
+
+    .pkg-card-tagline {
+      font-size: 14px;
+      font-weight: 400;
+      color: #505050;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .pkg-card-pricing {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .pkg-card-from {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: lowercase;
+    }
+
+    .pkg-card-price {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .pkg-card--pro .pkg-card-price { color: #C9A84C; }
+
+    .pkg-card-cycle {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 2px;
+      margin-bottom: 16px;
+    }
 
     .pkg-card-features {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 11px;
+      gap: 10px;
       flex: 1;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       padding-top: 20px;
       border-top: 1px solid var(--line);
     }
@@ -1421,7 +1485,7 @@
       gap: 10px;
       font-size: 14px;
       font-weight: 400;
-      color: var(--muted);
+      color: #505050;
       line-height: 1.45;
       transition: color var(--ease), transform var(--ease);
     }
@@ -1855,7 +1919,7 @@
       .step:hover, .step.is-active, .steps.has-active .step { transform: none; opacity: 1; }
       .step.is-active .step-num { animation: none; }
       .about-photo-wrap .about-photo, .reveal-stagger > *,
-      .pkg-col-header, .service-columns-note, .services-badge { animation: none; opacity: 1; transform: none; }
+      .pkg-col-header, .service-columns-note, .services-badge, .pkg-tab-panel { animation: none; opacity: 1; transform: none; }
       .progress { display: none; }
     }
   </style>
@@ -2082,106 +2146,121 @@
     <div class="wrap">
       <div class="section-head reveal">
         <p class="section-label">Pakete</p>
-        <h2 class="section-title">Unsere Leistungen</h2>
-        <p class="section-desc">Alles aus einer Hand — Website, Content &amp; Branding für lokale Businesses.</p>
+        <h2 class="section-title">Klare Pakete für Ihren digitalen Auftritt.</h2>
+        <p class="section-desc">Website, Social Media oder Branding — wählen Sie den Bereich, der Ihr Unternehmen aktuell am stärksten nach vorne bringt.</p>
       </div>
-      <div class="pkg-col-headers reveal">
-        <div class="pkg-col-header">Webseite</div>
-        <div class="pkg-col-header">Social Media</div>
-        <div class="pkg-col-header">Branding &amp; Logo</div>
+      <div class="pkg-tabs reveal" role="tablist" aria-label="Paket-Kategorien">
+        <button type="button" class="pkg-tab is-active" role="tab" aria-selected="true" data-tab="web">Webseite</button>
+        <button type="button" class="pkg-tab" role="tab" aria-selected="false" data-tab="social">Social Media</button>
+        <button type="button" class="pkg-tab" role="tab" aria-selected="false" data-tab="brand">Branding &amp; Logo</button>
       </div>
-      <div class="pkg-grid">
-        <article class="pkg-card pkg-card--starter reveal">
-          <span class="pkg-card-mobile-cat">Webseite</span>
-          <p class="pkg-card-tier">Starter</p>
-          <ul class="pkg-card-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>One-Page Website</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mobiloptimiert &amp; schnell</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Kontaktformular</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Impressum &amp; Datenschutz</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google My Business Setup</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 Revisionen</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 Monat WhatsApp Support</li>
-          </ul>
-          <a href="#kontakt" class="btn btn-ghost">Paket wählen</a>
-        </article>
-        <article class="pkg-card pkg-card--starter reveal">
-          <span class="pkg-card-mobile-cat">Social Media</span>
-          <p class="pkg-card-tier">Starter</p>
-          <ul class="pkg-card-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1x Vor-Ort Termin pro Monat</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Professionelle Kameraaufnahmen</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>8 Instagram Posts inkl. Captions</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 Reels geschnitten &amp; fertig</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Posting &amp; Planung inklusive</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hashtag Strategie</li>
-          </ul>
-          <a href="#kontakt" class="btn btn-ghost">Paket wählen</a>
-        </article>
-        <article class="pkg-card pkg-card--starter reveal">
-          <span class="pkg-card-mobile-cat">Branding &amp; Logo</span>
-          <p class="pkg-card-tier">Starter</p>
-          <ul class="pkg-card-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Logo Design (2 Varianten)</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Farbpalette &amp; Schriften</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Visitenkarte</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>PNG + SVG Dateien</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 Revisionen</li>
-          </ul>
-          <a href="#kontakt" class="btn btn-ghost">Paket wählen</a>
-        </article>
-        <article class="pkg-card pkg-card--pro reveal">
-          <span class="pkg-card-pro-badge">PRO</span>
-          <span class="pkg-card-mobile-cat">Webseite</span>
-          <p class="pkg-card-tier">Pro</p>
-          <ul class="pkg-card-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5-seitige Website</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mobiloptimiert &amp; schnell</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Kontaktformular</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Impressum &amp; Datenschutz</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google My Business optimiert</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SEO Grundoptimierung</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Instagram Seite aufgesetzt</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5 Revisionen</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 Monate WhatsApp Support</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>★ Erster Monat Wartung gratis</li>
-          </ul>
-          <a href="#kontakt" class="btn btn-gold">Paket wählen</a>
-        </article>
-        <article class="pkg-card pkg-card--pro reveal">
-          <span class="pkg-card-pro-badge">PRO</span>
-          <span class="pkg-card-mobile-cat">Social Media</span>
-          <p class="pkg-card-tier">Pro</p>
-          <ul class="pkg-card-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2x Vor-Ort Termine pro Monat</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Professionelle Kameraaufnahmen</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>12 Instagram Posts inkl. Captions</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 Reels geschnitten &amp; fertig</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>TikTok inklusive</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Stories Konzept</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Community Management</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monatlicher Bericht &amp; Strategie</li>
-          </ul>
-          <a href="#kontakt" class="btn btn-gold">Paket wählen</a>
-        </article>
-        <article class="pkg-card pkg-card--pro reveal">
-          <span class="pkg-card-pro-badge">PRO</span>
-          <span class="pkg-card-mobile-cat">Branding &amp; Logo</span>
-          <p class="pkg-card-tier">Pro</p>
-          <ul class="pkg-card-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Logo Design (4 Varianten)</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Komplette Farbpalette &amp; Schriften</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Visitenkarte &amp; Briefpapier</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Brand Guidelines Dokument</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Social Media Kit</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>PNG + SVG + PDF Dateien</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5 Revisionen</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>★ Social Media Kit inklusive</li>
-          </ul>
-          <a href="#kontakt" class="btn btn-gold">Paket wählen</a>
-        </article>
+      <p class="pkg-tab-intro reveal" id="pkgTabIntro">Für Unternehmen, die online professionell gefunden werden wollen.</p>
+      <div class="pkg-tab-panels">
+        <div class="pkg-tab-panel is-active" data-panel="web" role="tabpanel">
+          <div class="pkg-duo-grid">
+            <article class="pkg-card pkg-card--starter reveal">
+              <h3 class="pkg-card-title">Website Starter</h3>
+              <p class="pkg-card-tagline">Für den professionellen Online-Start.</p>
+              <div class="pkg-card-pricing"><span class="pkg-card-from">ab</span><span class="pkg-card-price">799 €</span></div>
+              <ul class="pkg-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Moderne One-Page Website</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Optimiert für Anfragen über Handy</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Kontaktformular &amp; klare Struktur</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Impressum &amp; Datenschutz eingebunden</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google My Business Setup</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 Revisionen</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 Monat WhatsApp Support</li>
+              </ul>
+              <a href="#kontakt" class="btn btn-ghost">Dieses Paket anfragen</a>
+            </article>
+            <article class="pkg-card pkg-card--pro reveal">
+              <span class="pkg-card-pro-badge">MEISTGEWÄHLT</span>
+              <h3 class="pkg-card-title">Website Pro</h3>
+              <p class="pkg-card-tagline">Für Unternehmen, die online mehr Vertrauen und Anfragen gewinnen wollen.</p>
+              <div class="pkg-card-pricing"><span class="pkg-card-from">ab</span><span class="pkg-card-price">1.499 €</span></div>
+              <ul class="pkg-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5-seitige Website mit hochwertiger Struktur</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Texte &amp; Aufbau auf Kundenanfragen optimiert</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mobiloptimiert &amp; schnell</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Kontaktformular</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Impressum &amp; Datenschutz eingebunden</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google My Business Setup</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 Revisionen</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 Monat Support</li>
+              </ul>
+              <a href="#kontakt" class="btn btn-gold">Dieses Paket anfragen</a>
+            </article>
+          </div>
+        </div>
+        <div class="pkg-tab-panel" data-panel="social" role="tabpanel">
+          <div class="pkg-duo-grid">
+            <article class="pkg-card pkg-card--starter reveal">
+              <h3 class="pkg-card-title">Social Media Starter</h3>
+              <p class="pkg-card-tagline">Für regelmäßige Sichtbarkeit auf Instagram.</p>
+              <div class="pkg-card-pricing"><span class="pkg-card-from">ab</span><span class="pkg-card-price">499 €</span></div>
+              <div class="pkg-card-cycle">/ Monat</div>
+              <ul class="pkg-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1x Vor-Ort-Termin pro Monat mit Profi-Aufnahmen</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>8 Instagram-Posts, die professionell wirken</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 Reels geschnitten &amp; fertig zum Posten</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Posting &amp; Planung inklusive</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hashtag-Strategie für mehr Reichweite</li>
+              </ul>
+              <a href="#kontakt" class="btn btn-ghost">Dieses Paket anfragen</a>
+            </article>
+            <article class="pkg-card pkg-card--pro reveal">
+              <span class="pkg-card-pro-badge">MEISTGEWÄHLT</span>
+              <h3 class="pkg-card-title">Social Media Pro</h3>
+              <p class="pkg-card-tagline">Für Unternehmen, die Social Media aktiv zur Kundengewinnung nutzen wollen.</p>
+              <div class="pkg-card-pricing"><span class="pkg-card-from">ab</span><span class="pkg-card-price">899 €</span></div>
+              <div class="pkg-card-cycle">/ Monat</div>
+              <ul class="pkg-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2x Vor-Ort-Termine pro Monat</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>12 Instagram-Posts inkl. Captions</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>4 Reels + TikTok-Inhalte</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Stories-Konzept für mehr Sichtbarkeit</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Community Management</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monatlicher Bericht &amp; Strategie</li>
+              </ul>
+              <a href="#kontakt" class="btn btn-gold">Dieses Paket anfragen</a>
+            </article>
+          </div>
+        </div>
+        <div class="pkg-tab-panel" data-panel="brand" role="tabpanel">
+          <div class="pkg-duo-grid">
+            <article class="pkg-card pkg-card--starter reveal">
+              <h3 class="pkg-card-title">Branding Starter</h3>
+              <p class="pkg-card-tagline">Für ein sauberes Logo und einen klaren Markenauftritt.</p>
+              <div class="pkg-card-pricing"><span class="pkg-card-from">ab</span><span class="pkg-card-price">399 €</span></div>
+              <ul class="pkg-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Logo Design mit 2 Varianten</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Farbpalette &amp; Schriften abgestimmt</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Visitenkarte für den ersten Eindruck</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>PNG + SVG Dateien</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 Revisionen</li>
+              </ul>
+              <a href="#kontakt" class="btn btn-ghost">Dieses Paket anfragen</a>
+            </article>
+            <article class="pkg-card pkg-card--pro reveal">
+              <span class="pkg-card-pro-badge">MEISTGEWÄHLT</span>
+              <h3 class="pkg-card-title">Branding Pro</h3>
+              <p class="pkg-card-tagline">Für einen vollständigen, hochwertigen Unternehmensauftritt.</p>
+              <div class="pkg-card-pricing"><span class="pkg-card-from">ab</span><span class="pkg-card-price">799 €</span></div>
+              <ul class="pkg-card-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Logo Design mit 4 Varianten</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Komplette Farbpalette &amp; Schriften</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Visitenkarte &amp; Briefpapier</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Brand Guidelines Dokument</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Social Media Kit</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>PNG + SVG + PDF Dateien</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5 Revisionen</li>
+              </ul>
+              <a href="#kontakt" class="btn btn-gold">Dieses Paket anfragen</a>
+            </article>
+          </div>
+        </div>
       </div>
-      <p class="service-columns-note reveal">💡 Jedes Projekt ist individuell — wir erstellen dir ein passendes Angebot.</p>
+      <p class="service-columns-note reveal">💡 Nicht sicher, welches Paket passt? Wir beraten Sie ehrlich und unverbindlich.</p>
     </div>
   </section>
 
@@ -2493,6 +2572,45 @@
           });
         });
       });
+
+      /* Package tabs */
+      const pkgTabs = document.querySelectorAll('.pkg-tab');
+      const pkgPanels = document.querySelectorAll('.pkg-tab-panel');
+      const pkgTabIntro = document.getElementById('pkgTabIntro');
+
+      const pkgTabIntros = {
+        web: 'Für Unternehmen, die online professionell gefunden werden wollen.',
+        social: 'Für Unternehmen, die regelmäßig sichtbar bleiben wollen.',
+        brand: 'Für Unternehmen, die einen hochwertigen Markenauftritt brauchen.'
+      };
+
+      const showPkgCards = (panel) => {
+        if (!panel || reduced) return;
+        panel.querySelectorAll('.pkg-card.reveal').forEach((card, i) => {
+          card.classList.add('show');
+          card.style.transitionDelay = `${i * 0.1}s`;
+        });
+      };
+
+      const activatePkgTab = (id) => {
+        pkgTabs.forEach(tab => {
+          const active = tab.dataset.tab === id;
+          tab.classList.toggle('is-active', active);
+          tab.setAttribute('aria-selected', String(active));
+        });
+        pkgPanels.forEach(panel => {
+          const active = panel.dataset.panel === id;
+          panel.classList.toggle('is-active', active);
+          if (active) showPkgCards(panel);
+        });
+        if (pkgTabIntro && pkgTabIntros[id]) pkgTabIntro.textContent = pkgTabIntros[id];
+      };
+
+      pkgTabs.forEach(tab => {
+        tab.addEventListener('click', () => activatePkgTab(tab.dataset.tab));
+      });
+
+      showPkgCards(document.querySelector('.pkg-tab-panel.is-active'));
 
       /* Micro-tilt on buttons & cards */
       if (!reduced) {
