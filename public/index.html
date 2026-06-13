@@ -897,6 +897,72 @@
       line-height: 1.65;
     }
 
+    /* Über uns */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px) {
+      .about-grid {
+        grid-template-columns: 280px 1fr;
+        gap: 64px;
+      }
+    }
+
+    .about-photo {
+      justify-self: center;
+      width: min(260px, 72vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid rgba(201, 168, 76, 0.35);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .about-content h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .about-role {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .about-content p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .about-content p:last-of-type { margin-bottom: 24px; }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .about-tag {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(201, 168, 76, 0.25);
+      background: rgba(201, 168, 76, 0.08);
+      color: var(--text);
+    }
+
     /* Reveal system */
     .reveal {
       opacity: 0;
@@ -1646,6 +1712,7 @@
         <img src="foundlinger_logo_tight_crop.png" alt="Foundlinger" class="logo-img" width="480" height="100">
       </a>
       <ul class="nav-links" id="navLinks">
+        <li><a href="#ueber-uns" data-section="ueber-uns">Über uns</a></li>
         <li><a href="#leistungen" data-section="leistungen">Leistungen</a></li>
         <li><a href="#pakete" data-section="pakete">Pakete</a></li>
         <li><a href="#prozess" data-section="prozess">Prozess</a></li>
@@ -1660,6 +1727,7 @@
   </nav>
 
   <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <a href="#ueber-uns">Über uns</a>
     <a href="#leistungen">Leistungen</a>
     <a href="#pakete">Pakete</a>
     <a href="#prozess">Prozess</a>
@@ -1763,6 +1831,30 @@
       </div>
     </div>
   </header>
+
+  <section id="ueber-uns">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="section-label">Über uns</p>
+        <h2 class="section-title">Persönlich. Direkt. Aus Lüneburg.</h2>
+      </div>
+      <div class="about-grid reveal">
+        <img src="Ceo.jpeg" alt="Ian-Tayler Paske — Gründer von Foundlinger" class="about-photo" width="520" height="520" loading="lazy">
+        <div class="about-content">
+          <h3>Ian-Tayler Paske</h3>
+          <p class="about-role">Gründer · Foundlinger</p>
+          <p>Ich helfe lokalen Unternehmen dabei, online sichtbar zu werden — mit Webdesign, Branding und Social Media, die zu Ihrem Business passen.</p>
+          <p>Bei Foundlinger arbeiten Sie direkt mit mir. Kein Agentur-Overhead, keine endlosen E-Mail-Ketten — sondern klare Kommunikation, schnelle Umsetzung und ein Auftritt, der Vertrauen schafft.</p>
+          <div class="about-tags">
+            <span class="about-tag">Lüneburg &amp; Umgebung</span>
+            <span class="about-tag">Webdesign</span>
+            <span class="about-tag">Branding</span>
+            <span class="about-tag">Social Media</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="leistungen" class="section-alt">
     <div class="wrap">
@@ -2144,7 +2236,7 @@
       }
 
       /* Active nav link */
-      const sections = ['leistungen', 'pakete', 'prozess', 'kontakt'];
+      const sections = ['ueber-uns', 'leistungen', 'pakete', 'prozess', 'kontakt'];
       const navAnchors = document.querySelectorAll('.nav-links a');
 
       const sectionObserver = new IntersectionObserver(entries => {
