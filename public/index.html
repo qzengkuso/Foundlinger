@@ -900,17 +900,33 @@
     }
 
     /* Über uns */
+    #ueber-uns {
+      padding-top: 72px;
+      padding-bottom: 88px;
+    }
+
+    @media (max-width: 767px) {
+      #ueber-uns {
+        padding-top: 52px;
+        padding-bottom: 72px;
+      }
+    }
+
+    #ueber-uns .section-head {
+      margin-bottom: 40px;
+    }
+
     .about-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 40px;
-      align-items: center;
+      gap: 32px;
+      align-items: start;
     }
 
     @media (min-width: 900px) {
       .about-grid {
-        grid-template-columns: 280px 1fr;
-        gap: 64px;
+        grid-template-columns: min(320px, 36%) 1fr;
+        gap: 48px;
       }
     }
 
@@ -922,13 +938,19 @@
       transition: transform 0.15s ease-out;
     }
 
+    @media (min-width: 900px) {
+      .about-photo-parallax { justify-self: start; }
+    }
+
     .about-photo-wrap {
-      width: min(260px, 72vw);
-      aspect-ratio: 1;
-      border-radius: 50%;
+      width: min(320px, 82vw);
+      aspect-ratio: 4 / 5;
+      border-radius: 28px;
       overflow: hidden;
-      border: 3px solid rgba(201, 168, 76, 0.35);
-      box-shadow: var(--shadow-hover);
+      border: 2px solid rgba(201, 168, 76, 0.42);
+      box-shadow:
+        0 24px 56px rgba(0, 0, 0, 0.1),
+        0 10px 28px rgba(201, 168, 76, 0.1);
     }
 
     .about-photo {
@@ -936,9 +958,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center 6%;
-      transform: scale(1.22);
-      transform-origin: center 20%;
+      object-position: center 8%;
+      transform: scale(1.18);
+      transform-origin: center 18%;
     }
 
     html.anim-ready .reveal.show .about-photo-wrap .about-photo {
@@ -946,12 +968,12 @@
     }
 
     @keyframes aboutPhotoFloat {
-      0%, 100% { transform: scale(1.22) translateY(0); }
-      50% { transform: scale(1.22) translateY(-5px); }
+      0%, 100% { transform: scale(1.18) translateY(0); }
+      50% { transform: scale(1.18) translateY(-4px); }
     }
 
     .about-content h3 {
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       font-weight: 700;
       letter-spacing: -0.03em;
       margin-bottom: 8px;
@@ -961,22 +983,22 @@
       font-size: 14px;
       font-weight: 500;
       color: var(--gold);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .about-content p {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.7;
-      color: var(--muted);
-      margin-bottom: 16px;
+      color: #4a4a4a;
+      margin-bottom: 14px;
     }
-
-    .about-content p:last-of-type { margin-bottom: 24px; }
 
     .about-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+      margin-top: 4px;
+      margin-bottom: 18px;
     }
 
     .about-tag {
@@ -988,6 +1010,49 @@
       border: 1px solid rgba(201, 168, 76, 0.25);
       background: rgba(201, 168, 76, 0.08);
       color: var(--text);
+    }
+
+    .about-trust-line {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .about-trust-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 480px) {
+      .about-trust-list { grid-template-columns: 1fr; }
+    }
+
+    .about-trust-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #505050;
+      line-height: 1.45;
+    }
+
+    .about-trust-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .about-content .btn {
+      align-self: flex-start;
     }
 
     /* Reveal system — Apple-style fade, scale & blur */
@@ -1034,6 +1099,8 @@
     .reveal.show.reveal-stagger > *:nth-child(4) { animation-delay: 0.42s; }
     .reveal.show.reveal-stagger > *:nth-child(5) { animation-delay: 0.52s; }
     .reveal.show.reveal-stagger > *:nth-child(6) { animation-delay: 0.62s; }
+    .reveal.show.reveal-stagger > *:nth-child(7) { animation-delay: 0.72s; }
+    .reveal.show.reveal-stagger > *:nth-child(8) { animation-delay: 0.82s; }
 
     .reveal.show.service-card .service-icon {
       animation: iconPop 0.7s var(--spring) 0.1s both;
@@ -2055,20 +2122,28 @@
       <div class="about-grid">
         <div class="about-photo-parallax" data-scroll-parallax>
           <div class="about-photo-wrap reveal">
-            <img src="Ceo.jpeg" alt="Ian-Tayler Paske — Gründer von Foundlinger" class="about-photo" width="520" height="520" loading="lazy">
+            <img src="Ceo.jpeg" alt="Ian-Tayler Paske — Gründer von Foundlinger" class="about-photo" width="640" height="800" loading="lazy">
           </div>
         </div>
         <div class="about-content reveal reveal-stagger">
           <h3>Ian-Tayler Paske</h3>
           <p class="about-role">Gründer · Foundlinger</p>
-          <p>Ich helfe lokalen Unternehmen dabei, online sichtbar zu werden — mit Webdesign, Branding und Social Media, die zu Ihrem Business passen.</p>
-          <p>Bei Foundlinger arbeiten Sie direkt mit mir. Kein Agentur-Overhead, keine endlosen E-Mail-Ketten — sondern klare Kommunikation, schnelle Umsetzung und ein Auftritt, der Vertrauen schafft.</p>
+          <p>Ich helfe lokalen Unternehmen dabei, online professioneller aufzutreten, Vertrauen aufzubauen und aus Besuchern echte Anfragen zu machen — mit Websites, Branding und Social Media, die wirklich zum Unternehmen passen.</p>
+          <p>Bei Foundlinger arbeiten Sie direkt mit mir: kurze Wege, klare Kommunikation und keine unnötigen Agentur-Schleifen. So entsteht ein digitaler Auftritt, der hochwertig wirkt und im Alltag funktioniert.</p>
           <div class="about-tags">
             <span class="about-tag">Lüneburg &amp; Umgebung</span>
             <span class="about-tag">Webdesign</span>
             <span class="about-tag">Branding</span>
             <span class="about-tag">Social Media</span>
           </div>
+          <p class="about-trust-line">Keine langen Agenturprozesse. Kein Fachchinesisch. Einfach ein sauberer digitaler Auftritt.</p>
+          <ul class="about-trust-list">
+            <li>Direkter Ansprechpartner</li>
+            <li>Klare Pakete</li>
+            <li>Schnelle Umsetzung</li>
+            <li>Lokaler Fokus</li>
+          </ul>
+          <a href="#kontakt" class="btn btn-gold">Projekt besprechen</a>
         </div>
       </div>
     </div>
